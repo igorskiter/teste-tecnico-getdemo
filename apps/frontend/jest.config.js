@@ -18,6 +18,7 @@ export default {
     "\\.(css|less|sass|scss)$": "identity-obj-proxy",
     "^.+\\.svg$": "jest-transformer-svg",
     "^@/components(.*)$": "<rootDir>/components/$1",
+    "^@/features(.*)$": "<rootDir>/features/$1",
     "^@/interfaces(.*)$": "<rootDir>/interfaces/$1",
     "^@/lib(.*)$": "<rootDir>/lib/$1",
     "^@/(.*)$": "<rootDir>/src/$1",

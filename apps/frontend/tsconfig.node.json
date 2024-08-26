@@ -15,6 +15,9 @@
       "@/lib/*": [
         "./lib/*"
       ],
+      "@/features/*": [
+        "./features/*"
+      ],
     },
     "target": "ES2022",
     "lib": [
