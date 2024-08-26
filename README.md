@@ -26,6 +26,7 @@ Este repositório contém o código-fonte e as configurações de infraestrutura
   - PostgreSQL como banco de dados relacional.
 
 - **Infraestrutura:**
+  - **Docker Compose**: Para gerenciamento de container no desenvolvimento local.
   - **Router53**: Gerenciamento de DNS.
   - **CloudFront**: Distribuição de conteúdo e CDN.
   - **EC2**: Servidores para hospedar as aplicações.
@@ -56,12 +57,30 @@ Este repositório contém o código-fonte e as configurações de infraestrutura
   ```
 
 3. Configure as variáveis de ambiente necessárias em .env na raiz de cada aplicação
-  
+
+- frontend
+
   ```bash
+  cd apps/frontend
   cp .env.example .env
   ```
 
-4. Inicie aplicação
+- backend
+  
+  ```bash
+  cd apps/backend
+  cp .env.example .env
+  ```
+
+4. Alimentar base de desenvolvimento
+  
+  ```bash
+  cd apps/backend
+  yarn infra-dev
+  yarn seed
+  ```
+
+5. Inicie aplicação
   
   ```bash
   yarn dev
