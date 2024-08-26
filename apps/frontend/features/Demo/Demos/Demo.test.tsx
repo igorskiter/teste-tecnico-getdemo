@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Demos from "./Demos.tsx";
+import Demos from "./index.tsx";
 
 describe("Test Demos", () => {
   it("renders heading", async () => {
