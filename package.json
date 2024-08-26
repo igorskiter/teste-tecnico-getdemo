@@ -1,0 +1,23 @@
+{
+  "name": "teste-tecnico-getdemo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/igorskiter/teste-tecnico-getdemo",
+  "author": "igor de franca (igorskiter)",
+  "license": "MIT",
+  "private": true,
+  "packageManager": "yarn@1.22.21",
+  "workspaces": [
+    "apps/*"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "turbo": "^2.0.14"
+  },
+  "scripts": {
+    "build": "turbo build --parallel",
+    "dev": "turbo dev --parallel",
+    "infra-homolog": "echo \"infra-homolog\"",
+    "infra-prod": "echo \"infra-prod\""
+  }
+}

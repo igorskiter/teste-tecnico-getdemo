@@ -1,0 +1,46 @@
+{
+  "name": "teste-tecnico-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "@sequelize/postgres": "^7.0.0-alpha.41",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "4.17.1",
+    "module-alias": "^2.2.3",
+    "sequelize": "^6.23.0",
+    "sqlite3": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "yarn infra-dev && nodemon",
+    "infra-dev": "cd ../../infra/local && docker-compose up --build -d && cd -",
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && node build/index.js",
+    "seed": "npx ts-node scripts/seedDb.ts",
+    "check-types": "echo 'check-types' backend",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-typescript": "^7.24.7",
+    "@types/node": "^22.5.0",
+    "concurrently": "^8.0.1",
+    "cross-env": "^7.0.3",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
+    "rimraf": "4",
+    "supertest": "^7.0.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=10.16.3"
+  },
+  "engineStrict": true,
+  "_moduleAliases": {
+    "@": "dist"
+  }
+}
