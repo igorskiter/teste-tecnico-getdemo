@@ -1,3 +1,6 @@
+const { Demo } = require("../model");
 export default async (req, res) => {
-  res.status(200).json({ success: true });
+  const demos = await Demo.findAll();
+
+  res.status(200).json(demos);
 };

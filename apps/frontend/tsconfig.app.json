@@ -5,6 +5,9 @@
       "@/*": [
         "./src/*"
       ],
+      "@/hooks/*": [
+        "./hooks/*"
+      ],
       "@/interfaces/*": [
         "./interfaces/*"
       ],
@@ -13,6 +16,9 @@
       ],
       "@/lib/*": [
         "./lib/*"
+      ],
+      "@/features/*": [
+        "./features/*"
       ],
     },
     "target": "ES2020",
@@ -37,14 +43,21 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "allowJs": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": [
+      "vite/client"
+    ]
   },
   "include": [
     "src/**/*.tsx",
     "interfaces/**/*.tsx",
+    "features/**/*.tsx",
     "components/**/*.tsx",
     "lib/**/*.tsx",
     "jest.setup.ts"
   ],
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

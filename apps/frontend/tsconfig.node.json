@@ -6,6 +6,9 @@
         "./src/*",
         "./interfaces/*"
       ],
+      "@/hooks/*": [
+        "./hooks/*"
+      ],
       "@/interfaces/*": [
         "./interfaces/*",
       ],
@@ -14,6 +17,9 @@
       ],
       "@/lib/*": [
         "./lib/*"
+      ],
+      "@/features/*": [
+        "./features/*"
       ],
     },
     "target": "ES2022",
