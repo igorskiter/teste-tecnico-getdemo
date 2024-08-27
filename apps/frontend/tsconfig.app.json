@@ -5,6 +5,9 @@
       "@/*": [
         "./src/*"
       ],
+      "@/hooks/*": [
+        "./hooks/*"
+      ],
       "@/interfaces/*": [
         "./interfaces/*"
       ],
@@ -40,7 +43,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "allowJs": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": [
+      "vite/client"
+    ]
   },
   "include": [
     "src/**/*.tsx",

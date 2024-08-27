@@ -6,6 +6,9 @@
         "./src/*",
         "./interfaces/*"
       ],
+      "@/hooks/*": [
+        "./hooks/*"
+      ],
       "@/interfaces/*": [
         "./interfaces/*",
       ],
