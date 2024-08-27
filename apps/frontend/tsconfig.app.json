@@ -50,6 +50,7 @@
   },
   "include": [
     "src/**/*.tsx",
+    "hooks/**/*.tsx",
     "interfaces/**/*.tsx",
     "features/**/*.tsx",
     "components/**/*.tsx",
