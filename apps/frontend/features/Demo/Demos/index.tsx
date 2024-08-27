@@ -3,11 +3,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useDemos } from "@/hooks/useDemos";
 import { PlusIcon, SearchIcon } from "lucide-react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 
 const ENABLE_ADD_DEMO = false;
 
 function Demos() {
+  const navigate = useNavigate();
+
+  const { demoId } = useParams<{ demoId: string }>();
   const { data, error, isLoading } = useDemos();
 
   if (isLoading) {
@@ -20,6 +23,7 @@ function Demos() {
       </div>
     );
   }
+
   if (error) {
     return (
       <div
@@ -65,16 +69,25 @@ function Demos() {
               </div>
             )}
             {demos.length > 0 &&
-              demos.map((demo) => (
-                <Card
-                  key={demo.id}
-                  className="p-4 rounded-lg border border-[#646cff] max-w-64 flex flex-col justify-center items-center"
-                >
-                  <CardContent>
-                    <h2>{demo.name}</h2>
-                  </CardContent>
-                </Card>
-              ))}
+              demos.map((demo) => {
+                const selectedCard =
+                  demoId === demo.id ? " border-blue-700 bg-blue-300" : "";
+
+                return (
+                  <Card
+                    data-testid={`card-list-${demo.id}`}
+                    key={demo.id}
+                    className={`p-4 rounded-lg border max-w-64 flex flex-col justify-center items-center ${selectedCard}`}
+                    onClick={() => {
+                      navigate(`/demos/detail/${demo.id}`);
+                    }}
+                  >
+                    <CardContent>
+                      <h2>{demo.name}</h2>
+                    </CardContent>
+                  </Card>
+                );
+              })}
           </div>
         </div>
       </aside>

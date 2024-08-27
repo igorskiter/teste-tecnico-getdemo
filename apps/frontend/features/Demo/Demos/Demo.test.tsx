@@ -1,5 +1,5 @@
 import { useDemos } from "@/hooks/useDemos.tsx";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import axios from "axios";
 import Demos from "./index.tsx";
 
@@ -7,6 +7,12 @@ jest.mock("@/hooks/useDemos.tsx");
 jest.mock("axios", () => ({
   ...jest.requireActual("axios"),
   get: jest.fn(),
+}));
+
+const mockNavigate = jest.fn();
+jest.mock('react-router-dom',()=>({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate
 }));
 
 describe("Test Demos", () => {
@@ -70,15 +76,8 @@ describe("Test Demos", () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: demosMock });
 
     render(<Demos />);
-    const items = screen.getAllByRole("heading");
-
-    const demosNames = items.map((item) => item.textContent);
-    expect(demosNames).toMatchInlineSnapshot(`
-        [
-          "Demos",
-          "ChatGPT",
-          "Amazon",
-        ]
-      `);
+    const card = screen.getByTestId("card-list-2");
+    fireEvent.click(card);
+    expect(mockNavigate).toHaveBeenCalledWith('/demos/detail/2')
   });
 });
