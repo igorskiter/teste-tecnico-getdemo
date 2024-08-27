@@ -1,5 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Demo } from "@/interfaces/Demo";
+import { PlusIcon, SearchIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 function Demos() {
@@ -18,26 +21,50 @@ function Demos() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full h-full p-8 box-border">
-      <h1 className="text-2xl">List demos</h1>
-      <div className="flex flex-row flex-1">
-        <div className="flex flex-1 w-1/3">
-          {demos.length > 0 &&
-            demos.map((demo) => (
-              <div
-                key={demo.id}
-                className="p-4 rounded-lg border border-[#646cff] max-w-64 flex flex-col justify-center items-center"
-              >
-                <h2>{demo.name}</h2>
-                <Button>Visualizar</Button>
+    <div key="1" className="flex h-screen bg-white dark:bg-zinc-800">
+      <aside className="w-80 border-r dark:border-zinc-700">
+        <div className="p-4 space-y-4 h-full">
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold text-black dark:text-white">
+              Demos
+            </h1>
+            <Button size="icon" variant="ghost">
+              <PlusIcon className="text-black dark:text-white w-6 h-6" />
+            </Button>
+          </div>
+          <div className="relative">
+            <SearchIcon className="absolute left-2.5 top-3 h-4 w-4 text-zinc-500 dark:text-zinc-400" />
+            <Input
+              className="pl-8"
+              placeholder="Search messages..."
+              type="search"
+            />
+          </div>
+          <div className="space-y-2 h-full">
+            {demos.length === 0 && (
+              <div className="flex items-center justify-center w-full h-full">
+                <h3 className="text-sm w-full">
+                  Nenhum demo encotrado!
+                </h3>
               </div>
-            ))}
+            )}
+            {demos.length > 0 &&
+              demos.map((demo) => (
+                <Card
+                  key={demo.id}
+                  className="p-4 rounded-lg border border-[#646cff] max-w-64 flex flex-col justify-center items-center"
+                >
+                  <CardContent>
+                    <h2>{demo.name}</h2>
+                  </CardContent>
+                </Card>
+              ))}
+          </div>
         </div>
-
-        <div className="flex flex-2 ml-12 w-2/3">
-          <Outlet />
-        </div>
-      </div>
+      </aside>
+      <section className="flex flex-col w-full">
+        <Outlet />
+      </section>
     </div>
   );
 }
