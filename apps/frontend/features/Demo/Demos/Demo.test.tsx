@@ -27,7 +27,7 @@ describe("Test Demos", () => {
     expect(screen.getByRole("heading", { name: /demos/i })).toBeInTheDocument();
   });
 
-  it("should show skeleton loading when get demos", () => {
+  it("should show loading when get demos", () => {
     (useDemos as jest.Mock).mockReturnValue({
       isLoading: true,
       data: undefined,
