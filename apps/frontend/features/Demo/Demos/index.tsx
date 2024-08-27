@@ -77,7 +77,7 @@ function Demos() {
                   <Card
                     data-testid={`card-list-${demo.id}`}
                     key={demo.id}
-                    className={`p-4 rounded-lg border max-w-64 flex flex-col justify-center items-center ${selectedCard}`}
+                    className={`p-4 rounded-lg border max-w-64 flex flex-col justify-center items-center cursor-pointer ${selectedCard}`}
                     onClick={() => {
                       navigate(`/demos/detail/${demo.id}`);
                     }}
