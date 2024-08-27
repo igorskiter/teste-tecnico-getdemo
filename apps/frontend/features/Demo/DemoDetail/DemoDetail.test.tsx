@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Router from "react-router-dom";
-import DemoDetail from "./DemoDetail.tsx";
+import DemoDetail from "./index.tsx";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
