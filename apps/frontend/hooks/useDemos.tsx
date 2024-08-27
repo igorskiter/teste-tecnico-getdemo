@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-const API_URL = process.env.VITE_API_URL || "http://localhost:3001/demos";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/demos";
 
 type Demo = {
   id: string;
