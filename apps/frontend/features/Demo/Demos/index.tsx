@@ -1,27 +1,37 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Demo } from "@/interfaces/Demo";
+import { useDemos } from "@/hooks/useDemos";
 import { PlusIcon, SearchIcon } from "lucide-react";
-import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
 const ENABLE_ADD_DEMO = false;
 
 function Demos() {
-  const [demos, setDemos] = useState<Demo[] | []>([]);
+  const { data, error, isLoading } = useDemos();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // const response = await fetch("http://localhost:3001/demos", {
-      //   method: "GET",
-      // });
-      // setDemos(await response.json());
-      setDemos([]);
-    };
+  if (isLoading) {
+    return (
+      <div
+        data-testid="spin"
+        className="flex items-center justify-center h-screen"
+      >
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div
+        data-testid="error-demos"
+        className="flex items-center justify-center h-screen"
+      >
+        <h1 className="text-2xl">Error loading demos!</h1>
+      </div>
+    );
+  }
 
-    fetchData();
-  }, []);
+  const demos = data || [];
 
   return (
     <div key="1" className="flex h-screen bg-white dark:bg-zinc-800">
@@ -47,7 +57,10 @@ function Demos() {
           </div>
           <div className="space-y-2 h-full">
             {demos.length === 0 && (
-              <div className="flex items-center justify-center w-full h-full">
+              <div
+                data-testid="no-demos"
+                className="flex items-center justify-center w-full h-full"
+              >
                 <h3 className="text-sm w-full">Nenhum demo encotrado!</h3>
               </div>
             )}
