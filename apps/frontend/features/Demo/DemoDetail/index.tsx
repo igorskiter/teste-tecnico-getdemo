@@ -5,7 +5,7 @@ import { PlusIcon } from "lucide-react";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-const ENABLE_ADD_FRAME = true;
+const ENABLE_ADD_FRAME = false;
 
 const DemoDetail: React.FC = () => {
   const { demoId } = useParams<{ demoId: string }>();
