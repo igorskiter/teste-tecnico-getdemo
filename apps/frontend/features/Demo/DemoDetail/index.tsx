@@ -1,8 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
+import Thumbnail from "@/components/ui/thumbnail";
 import { useFrames } from "@/hooks/useFrames";
 import { PlusIcon } from "lucide-react";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+
+const ENABLE_ADD_FRAME = true;
 
 const DemoDetail: React.FC = () => {
   const { demoId } = useParams<{ demoId: string }>();
@@ -47,7 +50,7 @@ const DemoDetail: React.FC = () => {
 
   return (
     <>
-      <main className="w-full h-full flex-1 overflow-auto p-4">
+      <main className="w-full h-fit max-w-full flex-1 overflow-auto">
         {frames.length === 0 && (
           <div
             data-testid="no-frames"
@@ -57,39 +60,47 @@ const DemoDetail: React.FC = () => {
           </div>
         )}
         {frames.length > 0 && (
-          <iframe data-testid="iframe" srcDoc={frames[selectedFrame].html} className="w-full h-full" />
+          <iframe
+            data-testid="iframe"
+            srcDoc={frames[selectedFrame].html}
+            className="w-full h-full"
+          />
         )}
       </main>
-      <footer className="flex flex-row gap-4 border-t dark:border-zinc-700 p-4">
-        {frames.length > 0 &&
-          frames.map((frame, index) => {
-            const selectedCard =
-              demoId === frame.id ? " border-blue-700 bg-blue-300" : "";
+      <footer className="flex flex-row gap-4 border-t dark:border-zinc-700 p-4 h-44 hover:h-64 transition-[height]">
+        <div className="flex flex-row gap-4 border-t dark:border-zinc-700 overflow-x-auto">
+          {frames.length > 0 &&
+            frames.map((frame, index) => {
+              const selectedCard =
+                demoId === frame.id ? " border-blue-700 bg-blue-300" : "";
 
-            return (
-              <Card
-                data-testid={`card-list-${frame.id}`}
-                key={frame.id}
-                className={`p-4 rounded-lg border max-w-64 flex flex-col justify-center items-center cursor-pointer ${selectedCard}`}
-                onClick={() => {
-                  setSelectedFrame(index);
-                  // navigate(`/frames/detail/${frame.id}`);
-                }}
-              >
-                <CardContent>
-                  <iframe srcDoc={frame.html} className="w-full h-full" />
-                </CardContent>
-              </Card>
-            );
-          })}
-        <Card
-          data-testid="card-add-frame"
-          className={`p-4 rounded-lg border max-w-64 flex flex-col justify-center items-center cursor-pointer`}
-        >
-          <CardContent>
-            <PlusIcon className="w-12 h-12" />
-          </CardContent>
-        </Card>
+              return (
+                <Card
+                  data-testid={`card-list-${frame.id}`}
+                  key={frame.id}
+                  className={`rounded-lg border flex flex-col justify-center items-center cursor-pointer ${selectedCard}`}
+                  onClick={() => {
+                    setSelectedFrame(index);
+                    // navigate(`/frames/detail/${frame.id}`);
+                  }}
+                >
+                  <CardContent className="relative w-full h-full overflow-hidden p-0 giphy-embed pointer-events-none zoom-in-50">
+                    <Thumbnail html={frame.html} />
+                  </CardContent>
+                </Card>
+              );
+            })}
+        </div>
+        {ENABLE_ADD_FRAME && (
+          <Card
+            data-testid="card-add-frame"
+            className={`p-4 rounded-lg border max-w-64 flex flex-col justify-center items-center cursor-pointer `}
+          >
+            <CardContent className="p-0">
+              <PlusIcon className="w-12 h-12" />
+            </CardContent>
+          </Card>
+        )}
       </footer>
     </>
   );
