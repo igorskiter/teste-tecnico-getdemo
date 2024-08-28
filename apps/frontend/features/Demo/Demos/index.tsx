@@ -39,7 +39,7 @@ function Demos() {
 
   return (
     <div key="1" className="flex h-screen bg-white dark:bg-zinc-800">
-      <aside className="w-80 border-r dark:border-zinc-700">
+      <aside className="w-64 border-r dark:border-zinc-700">
         <div className="p-4 space-y-4 h-full">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold text-black dark:text-white">
@@ -59,7 +59,7 @@ function Demos() {
               type="search"
             />
           </div>
-          <div className="space-y-2 h-full">
+          <div className="space-y-2 w-full">
             {demos.length === 0 && (
               <div
                 data-testid="no-demos"
@@ -77,7 +77,7 @@ function Demos() {
                   <Card
                     data-testid={`card-list-${demo.id}`}
                     key={demo.id}
-                    className={`p-4 rounded-lg border max-w-64 flex flex-col justify-center items-center ${selectedCard}`}
+                    className={`p-4 rounded-lg border flex flex-col justify-center items-center cursor-pointer ${selectedCard}`}
                     onClick={() => {
                       navigate(`/demos/detail/${demo.id}`);
                     }}
@@ -91,7 +91,10 @@ function Demos() {
           </div>
         </div>
       </aside>
-      <section className="flex flex-col w-full">
+      <section
+        className="flex flex-col w-full"
+        style={{ maxWidth: "calc(100% - 16rem)" }}
+      >
         <Outlet />
       </section>
     </div>

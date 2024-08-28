@@ -20,7 +20,8 @@
     "start": "npm run build && node build/index.js",
     "seed": "npx ts-node scripts/seedDb.ts",
     "check-types": "echo 'check-types' backend",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.25.4",

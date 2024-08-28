@@ -16,6 +16,7 @@ app.set("models", sequelize.models);
 
 app.get("/demos", demos);
 
+app.get("/frames/:id", frames);
 app.put("/frames/:id", frames);
 
 module.exports = app;

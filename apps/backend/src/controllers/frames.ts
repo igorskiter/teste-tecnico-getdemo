@@ -1,3 +1,8 @@
+const { Frame } = require("../model");
 export default async (req, res) => {
-  res.status(200).json({ success: true });
+  const demos = await Frame.findAll({
+    order: [["order", "ASC"]],
+  });
+
+  res.status(200).json(demos);
 };
