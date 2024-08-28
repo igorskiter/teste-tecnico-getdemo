@@ -20,10 +20,8 @@ const createFrame = async (newFrame: { html: string }) => {
 
 // Update an existing demo
 const updateFrame = async (updatedFrame: Frame) => {
-  const { data } = await axios.put(
-    `${API_URL}/${updatedFrame.id}`,
-    updatedFrame
-  );
+  const { id, ...frame } = updatedFrame;
+  const { data } = await axios.put(`${API_URL}/${id}`, frame);
   return data;
 };
 
@@ -52,12 +50,42 @@ export const useFrames = ({ demoId }: { demoId: string }) => {
   });
 
   // Update
-  const updateFrameMutation = useMutation<Frame, Error, Frame>({
-    mutationFn: updateFrame,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["demos"] });
-    },
-  });
+  const updateFrameMutation = (
+    selectedElement: HTMLElement | null,
+    setIsSaving: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsSaved: React.Dispatch<React.SetStateAction<boolean>>,
+    setSelectedElement: React.Dispatch<
+      React.SetStateAction<HTMLElement | null>
+    >,
+    setInputPosition: React.Dispatch<
+      React.SetStateAction<{ top: number; left: number } | null>
+    >
+  ) => {
+    const mutation = useMutation<Frame, Error, Frame>({
+      mutationFn: updateFrame,
+      onMutate: () => {
+        setIsSaving(true);
+        setIsSaved(false);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["demos"] });
+        // queryClient.setQueryData(["elementText", data.elementId], data.text);
+        setIsSaving(false);
+        setIsSaved(true);
+        setTimeout(() => {
+          if (selectedElement) selectedElement.style.outline = "none";
+
+          setTimeout(() => {
+            setSelectedElement(null);
+          }, 200);
+
+          setIsSaved(false);
+          setInputPosition(null);
+        }, 500);
+      },
+    });
+    return mutation;
+  };
 
   // Delete
   const deleteFrameMutation = useMutation<Frame, Error, string>({
@@ -70,7 +98,7 @@ export const useFrames = ({ demoId }: { demoId: string }) => {
   return {
     ...demosQuery,
     createFrame: createFrameMutation.mutateAsync,
-    updateFrame: updateFrameMutation.mutateAsync,
+    updateFrame: updateFrameMutation,
     deleteFrame: deleteFrameMutation.mutateAsync,
   };
 };
