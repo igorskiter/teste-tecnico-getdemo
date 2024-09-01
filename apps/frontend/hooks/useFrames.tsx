@@ -44,8 +44,9 @@ export const useFrames = ({ demoId }: { demoId: string }) => {
   // Create
   const createFrameMutation = useMutation<Frame, Error, { html: string }>({
     mutationFn: createFrame,
-    onSuccess: () => {
+    onSuccess: (data: any) => {
       queryClient.invalidateQueries({ queryKey: ["demos"] });
+      queryClient.setQueryData(["demos", data.id], data);
     },
   });
 
@@ -67,9 +68,9 @@ export const useFrames = ({ demoId }: { demoId: string }) => {
         setIsSaving(true);
         setIsSaved(false);
       },
-      onSuccess: () => {
+      onSuccess: (data: any) => {
         queryClient.invalidateQueries({ queryKey: ["demos"] });
-        // queryClient.setQueryData(["elementText", data.elementId], data.text);
+        queryClient.setQueryData(["demos", data.id], data);
         setIsSaving(false);
         setIsSaved(true);
         setTimeout(() => {
