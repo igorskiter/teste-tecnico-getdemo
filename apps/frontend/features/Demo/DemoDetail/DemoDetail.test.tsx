@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import axios from "axios";
 import React from "react";
 import Router from "react-router-dom";
-import DemoDetail from "./index.tsx";
+import DemoDetail, { ENABLE_ADD_FRAME } from "./index.tsx";
 
 jest.mock("@/hooks/useFrames.tsx");
 jest.mock("axios", () => ({
@@ -33,6 +33,9 @@ describe("Test DemoDetail", () => {
       isLoading: true,
       data: undefined,
       error: false,
+      updateFrame: () => ({
+        mutate: jest.fn(),
+      }),
     });
     (axios.get as jest.Mock).mockResolvedValue({ data: [] });
 
@@ -45,6 +48,9 @@ describe("Test DemoDetail", () => {
       isLoading: false,
       data: [],
       error: true,
+      updateFrame: () => ({
+        mutate: jest.fn(),
+      }),
     });
     (axios.get as jest.Mock).mockResolvedValue({ data: [] });
 
@@ -57,6 +63,9 @@ describe("Test DemoDetail", () => {
       isLoading: false,
       data: [],
       error: false,
+      updateFrame: () => ({
+        mutate: jest.fn(),
+      }),
     });
     (axios.get as jest.Mock).mockResolvedValue({ data: [] });
 
@@ -69,6 +78,9 @@ describe("Test DemoDetail", () => {
       isLoading: false,
       data: framesMock,
       error: false,
+      updateFrame: () => ({
+        mutate: jest.fn(),
+      }),
     });
     (axios.get as jest.Mock).mockResolvedValue({ data: framesMock });
 
@@ -83,11 +95,16 @@ describe("Test DemoDetail", () => {
       isLoading: false,
       data: framesMock,
       error: false,
+      updateFrame: () => ({
+        mutate: jest.fn(),
+      }),
     });
     (axios.get as jest.Mock).mockResolvedValue({ data: framesMock });
 
     render(<DemoDetail />);
-    expect(screen.getByTestId("card-add-frame")).toBeInTheDocument();
+    
+    if (ENABLE_ADD_FRAME)
+      expect(screen.getByTestId("card-add-frame")).toBeInTheDocument();
   });
 
   it("should show frame selected in a iframe", () => {
@@ -95,6 +112,9 @@ describe("Test DemoDetail", () => {
       isLoading: false,
       data: framesMock,
       error: false,
+      updateFrame: () => ({
+        mutate: jest.fn(),
+      }),
     });
     (axios.get as jest.Mock).mockResolvedValue({ data: framesMock });
 

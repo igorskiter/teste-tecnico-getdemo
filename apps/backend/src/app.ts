@@ -1,5 +1,5 @@
 import demos from "./controllers/demos";
-import frames from "./controllers/frames";
+import * as frames from "./controllers/frames";
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -16,7 +16,7 @@ app.set("models", sequelize.models);
 
 app.get("/demos", demos);
 
-app.get("/frames/:id", frames);
-app.put("/frames/:id", frames);
+app.get("/frames/:id", frames.get);
+app.put("/frames/:id", frames.put);
 
 module.exports = app;

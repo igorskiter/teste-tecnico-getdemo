@@ -4,8 +4,9 @@ import { useFrames } from "@/hooks/useFrames";
 import { PlusIcon } from "lucide-react";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import FrameEditor from "./FrameEditor";
 
-const ENABLE_ADD_FRAME = false;
+export const ENABLE_ADD_FRAME = false;
 
 const DemoDetail: React.FC = () => {
   const { demoId } = useParams<{ demoId: string }>();
@@ -60,11 +61,7 @@ const DemoDetail: React.FC = () => {
           </div>
         )}
         {frames.length > 0 && (
-          <iframe
-            data-testid="iframe"
-            srcDoc={frames[selectedFrame].html}
-            className="w-full h-full"
-          />
+          <FrameEditor demoId={demoId} frame={frames[selectedFrame]} />
         )}
       </main>
       <footer className="flex flex-row gap-4 border-t dark:border-zinc-700 p-4 h-44 hover:h-64 transition-[height]">

@@ -6,6 +6,7 @@ import { PlusIcon, SearchIcon } from "lucide-react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 
 const ENABLE_ADD_DEMO = false;
+const ENABLE_SEARCH_DEMO = true;
 
 function Demos() {
   const navigate = useNavigate();
@@ -51,14 +52,16 @@ function Demos() {
               </Button>
             )}
           </div>
-          <div className="relative">
-            <SearchIcon className="absolute left-2.5 top-3 h-4 w-4 text-zinc-500 dark:text-zinc-400" />
-            <Input
-              className="pl-8"
-              placeholder="Search demos..."
-              type="search"
-            />
-          </div>
+          {ENABLE_SEARCH_DEMO && (
+            <div className="relative">
+              <SearchIcon className="absolute left-2.5 top-3 h-4 w-4 text-zinc-500 dark:text-zinc-400" />
+              <Input
+                className="pl-8"
+                placeholder="Search demos..."
+                type="search"
+              />
+            </div>
+          )}
           <div className="space-y-2 w-full">
             {demos.length === 0 && (
               <div
